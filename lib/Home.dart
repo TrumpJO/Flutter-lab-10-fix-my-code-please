@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import './models/functions.dart';
-import 'models/Quiz.dart';
+import 'models/quiz.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -23,29 +22,24 @@ class Home extends StatelessWidget {
                   builder: (context) {
                     return AlertDialog(
                       content: Center(
-                          child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton.icon(
+                          child: ElevatedButton.icon(
                               onPressed: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return Quiz();
-                                }));
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => Quiz(),
+                                  ),
+                                );
                               },
                               icon: Icon(Icons.people),
-                              label: Text("Go to Quiz page")),
-                        ],
-                      )),
+                              label: Text("Go to Quiz page"))),
                     );
                   });
             },
-            child: SizedBox(
-              height: 250,
-              width: 200,
+            child: Padding(
+              padding: const EdgeInsets.all(33.0),
               child: Text(
                 "Do you think you are good in english press me if yes:)",
-                style: TextStyle(fontSize: 25),
+                style: TextStyle(fontSize: 25, backgroundColor: Colors.white70),
               ),
             ),
           ),

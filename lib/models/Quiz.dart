@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../component/question.dart';
+import '../qa/question.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -17,41 +17,37 @@ class _QuizState extends State<Quiz> {
         child: Scaffold(
           appBar: AppBar(
             bottom: TabBar(tabs: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.question_answer),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.question_answer),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.question_answer),
-              ),
+              Icon(Icons.question_answer),
+              Icon(Icons.question_answer),
+              Icon(Icons.question_answer),
             ]),
-            title: Text("Quiz App"),
+            title: Text("Questions"),
           ),
-          body: TabBarView(children: [
-            Qus(
+          body: TabBarView(
+            children: [
+              Question(
                 answer_1: "painful",
                 answer_2: "likely",
                 answer_3: "favorable",
                 answer_4: "slippery",
-                qus_text: "Which is a synonym of propitious?"),
-            Qus(
+                qus_text: "Which is a synonym of propitious?",
+              ),
+              Question(
                 answer_1: "warlike",
                 answer_2: "skilful",
                 answer_3: "bloody",
                 answer_4: "deadly",
-                qus_text: "Which is a synonym of pernicious?"),
-            Qus(
+                qus_text: "Which is a synonym of pernicious?",
+              ),
+              Question(
                 answer_1: "custody",
                 answer_2: "betrayal",
                 answer_3: "quality",
                 answer_4: "information",
-                qus_text: "Which is a synonym of perfidy?"),
-          ]),
+                qus_text: "Which is a synonym of perfidy?",
+              ),
+            ],
+          ),
         ));
   }
 }

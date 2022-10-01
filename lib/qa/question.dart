@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Qus extends StatelessWidget {
-  Qus({
+class Question extends StatelessWidget {
+  Question({
     required this.qus_text,
     required this.answer_1,
     required this.answer_2,
