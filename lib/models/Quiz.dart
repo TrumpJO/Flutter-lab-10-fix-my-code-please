@@ -20,27 +20,8 @@ class _QuizState extends State<Quiz> {
     // having the items stacked when reloaded.
     clearQuestionClassLists();
 
-    var _answerTestSample_NetworkImage = Image(
-      image: NetworkImage(
-          "https://th.bing.com/th/id/OIP.dwsjFEujyHT2v2h2MZqZjQHaHa?pid=ImgDet&rs=1"),
-    );
-    var _answerTestSample_QuestionText =
-        "Test Questions(1! to 3!):\nText_Sample(1)\nText_Sample(2) | Text_Sample(1)\nText_Sample(3) | Text_Sample(2) | Text_Sample(1)";
     _questionsList.add(
-      Question(questionText: _answerTestSample_QuestionText, answersList: [
-        Answer(answer: Text("111")),
-        Answer(answer: Text("222")),
-        Answer(answer: _answerTestSample_NetworkImage),
-        Answer(answer: _answerTestSample_NetworkImage),
-        Answer(answer: _answerTestSample_NetworkImage),
-        Answer(answer: _answerTestSample_NetworkImage),
-        Answer(answer: Text("111")),
-        Answer(answer: Text("222")),
-        Answer(answer: Text("333")),
-        Answer(answer: _answerTestSample_NetworkImage),
-        Answer(answer: Text("111")),
-        Answer(answer: Text("222")),
-      ]),
+      Question.getAnswerTestSample(crossAxisCount: 3),
     );
     _questionsList.add(
       Question(

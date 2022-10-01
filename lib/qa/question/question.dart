@@ -7,7 +7,10 @@ import 'package:lab_10/qa/answer.dart';
 class Question {
   static const double TEXT_FONTSIZE = 26;
   static const double QUESTION_HEIGHT = TEXT_FONTSIZE + (TEXT_FONTSIZE / 5);
-  static List<Icon> question_IconList = [];
+  static const double SPACE_BETWEEN_OPTIONS_HORIZONTALLY = 14;
+  static const double SPACE_BETWEEN_OPTIONS_VERTICALLY = 20;
+  static List<Icon> questions_IconList = [];
+  // ToDo: Add text background & front Colors.
 
   String _questionText = "Question?";
   List<Answer> _answersList = [];
@@ -24,7 +27,7 @@ class Question {
     _questionText = questionText;
     _answersList = answersList;
     _icon = icon;
-    question_IconList.add(_icon);
+    questions_IconList.add(_icon);
     _crossAxisCount = crossAxisCount;
     _questionLines = _getQuestionLines();
   }
@@ -62,13 +65,22 @@ class Question {
           itemCount: _answersList.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: _crossAxisCount,
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 0.0,
+            crossAxisSpacing: SPACE_BETWEEN_OPTIONS_HORIZONTALLY,
+            mainAxisSpacing: SPACE_BETWEEN_OPTIONS_VERTICALLY,
           ),
           itemBuilder: (BuildContext context, int index) {
-            return Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [_getAnswer(index), _getOptionNum(index)],
+            return Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.black,
+                ),
+              ),
+              child: Column(
+                children: [
+                  _getAnswer(index),
+                  _getOptionNum(index),
+                ],
+              ),
             );
           },
         ),
@@ -101,10 +113,39 @@ class Question {
   }
 
   static List<Widget> getIconsList() {
-    return question_IconList;
+    return questions_IconList;
   }
 
   static void clearIconsList() {
-    question_IconList.clear();
+    questions_IconList.clear();
+  }
+
+  static dynamic getAnswerTestSample({int crossAxisCount = 3}) {
+    var _answerTestSample_NetworkImage = Image(
+      image: NetworkImage(
+          "https://th.bing.com/th/id/OIP.dwsjFEujyHT2v2h2MZqZjQHaHa?pid=ImgDet&rs=1"),
+    );
+    var _answerTestSample_QuestionText =
+        "Test Questions(1! to 3!):\nText_Sample(1)\nText_Sample(2) | Text_Sample(1)\nText_Sample(3) | Text_Sample(2) | Text_Sample(1)";
+    var _answerTestSample_answersList = [
+      Answer(answer: Text("111")),
+      Answer(answer: Text("222")),
+      Answer(answer: _answerTestSample_NetworkImage),
+      Answer(answer: _answerTestSample_NetworkImage),
+      Answer(answer: _answerTestSample_NetworkImage),
+      Answer(answer: _answerTestSample_NetworkImage),
+      Answer(answer: Text("111")),
+      Answer(answer: Text("222")),
+      Answer(answer: Text("333")),
+      Answer(answer: _answerTestSample_NetworkImage),
+      Answer(answer: Text("111")),
+      Answer(answer: Text("222")),
+    ];
+
+    return Question(
+      crossAxisCount: crossAxisCount,
+      questionText: _answerTestSample_QuestionText,
+      answersList: _answerTestSample_answersList,
+    );
   }
 }
