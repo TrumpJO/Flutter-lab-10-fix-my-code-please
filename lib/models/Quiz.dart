@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../qa/answer.dart';
 import '../qa/question/question.dart';
+
+List<Question> _questionsList = [];
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -12,60 +15,78 @@ class Quiz extends StatefulWidget {
 class _QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
-    List<Question> _questionsList = [];
-    _questionsList.add(Question(questionText: "Q 1", answersList: []));
-    _questionsList.add(Question(questionText: "Q 2", answersList: []));
-    _questionsList.add(Question(questionText: "Q 3", answersList: []));
-    // debugPrint("questionsList Length = ${questionsList.length}");
+    // ToDo: delete clearQuestionClassLists method,
+    // if there is a way to remove it without
+    // having the items stacked when reloaded.
+    clearQuestionClassLists();
+
+    var _answerTestSample_NetworkImage = Image(
+      image: NetworkImage(
+          "https://th.bing.com/th/id/OIP.dwsjFEujyHT2v2h2MZqZjQHaHa?pid=ImgDet&rs=1"),
+    );
+    var _answerTestSample_QuestionText =
+        "Test Questions(1! to 3!):\nText_Sample(1)\nText_Sample(2) | Text_Sample(1)\nText_Sample(3) | Text_Sample(2) | Text_Sample(1)";
+    _questionsList.add(
+      Question(questionText: _answerTestSample_QuestionText, answersList: [
+        Answer(answer: Text("111")),
+        Answer(answer: Text("222")),
+        Answer(answer: _answerTestSample_NetworkImage),
+        Answer(answer: _answerTestSample_NetworkImage),
+        Answer(answer: _answerTestSample_NetworkImage),
+        Answer(answer: _answerTestSample_NetworkImage),
+        Answer(answer: Text("111")),
+        Answer(answer: Text("222")),
+        Answer(answer: Text("333")),
+        Answer(answer: _answerTestSample_NetworkImage),
+        Answer(answer: Text("111")),
+        Answer(answer: Text("222")),
+      ]),
+    );
+    _questionsList.add(
+      Question(
+        questionText: "Q 2",
+        answersList: [],
+        icon: Icon(Icons.abc),
+      ),
+    );
+    _questionsList.add(
+      Question(
+        questionText: "Q 3",
+        answersList: [],
+      ),
+    );
+
     return DefaultTabController(
       length: _questionsList.length,
       child: Scaffold(
         appBar: AppBar(
-          bottom: TabBar(tabs: [
-            Icon(Icons.question_answer),
-            Icon(Icons.question_answer),
-            Icon(Icons.question_answer),
-          ]),
+          bottom: TabBar(
+            isScrollable: true,
+            tabs: Question.getIconsList(),
+          ),
           title: Text("Questions"),
         ),
         body: TabBarView(
-          children: _getQuestions(_questionsList),
-          // children: [
-          //   Question(
-          //     answer_1: "painfulaaaaaa",
-          //     answer_2: "likely",
-          //     answer_3: "favorable",
-          //     answer_4: "slippery",
-          //     questionText: "Which is a synonym of propitious?",
-          //   ),
-          //   Question(
-          //     answer_1: "warlike",
-          //     questionText: "skilful",
-          //     answer_3: "bloody",
-          //     answer_4: "deadly",
-          //     answer_2: "Which is a synonym of pernicious?",
-          //   ),
-          //   Question(
-          //     answer_1: "custody",
-          //     questionText: "betrayal",
-          //     answer_3: "quality",
-          //     answer_4: "information",
-          //     answer_2: "Which is a synonym of perfidy?",
-          //   ),
-          // ],
+          children: _getQuestionsAndAnswers(),
         ),
       ),
     );
   }
 
-  // ToContinue
-  List<Widget> _getQuestions(List<Question> questionsList) {
-    List<Widget> _questionsWidgetList = [];
-    for (var element in questionsList) {
-      _questionsWidgetList.add(
-        Text("${element}"),
+  List<Widget> _getQuestionsAndAnswers() {
+    List<Widget> widgetList = [];
+    for (var element in _questionsList) {
+      widgetList.add(
+        element.getAnswers_GridList(
+          question: element.getQuestion(),
+        ),
       );
     }
-    return _questionsWidgetList;
+    return widgetList;
+  }
+
+  void clearQuestionClassLists() {
+    _questionsList.clear();
+    Question.clearIconsList();
   }
 }

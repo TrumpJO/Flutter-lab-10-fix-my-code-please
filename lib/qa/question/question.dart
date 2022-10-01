@@ -1,119 +1,110 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lab_10/qa/question/structures/gridlist.dart';
+import 'package:lab_10/Home.dart';
+import 'package:lab_10/main.dart';
+import 'package:lab_10/qa/answer.dart';
 
-String _questionText = "Question?";
-List _answersList = [];
+class Question {
+  static const double TEXT_FONTSIZE = 26;
+  static const double QUESTION_HEIGHT = TEXT_FONTSIZE + (TEXT_FONTSIZE / 5);
+  static List<Icon> question_IconList = [];
 
-class Question extends StatefulWidget {
+  String _questionText = "Question?";
+  List<Answer> _answersList = [];
+  Icon _icon = Icon(Icons.question_answer);
+  int _crossAxisCount = 3;
+  int _questionLines = 1;
+
   Question({
     required String questionText,
-    required List answersList,
-    // this.answer_1,
-    // this.answer_2,
-    // this.answer_3,
-    // this.answer_4,
+    required List<Answer> answersList,
+    Icon icon = const Icon(Icons.question_answer),
+    int crossAxisCount = 3,
   }) {
     _questionText = questionText;
     _answersList = answersList;
+    _icon = icon;
+    question_IconList.add(_icon);
+    _crossAxisCount = crossAxisCount;
+    _questionLines = _getQuestionLines();
   }
 
-  // String? answer_1;
-  // String? answer_2;
-  // String? answer_3;
-  // String? answer_4;
+  int _getQuestionLines() => ('\n'.allMatches(_questionText).length) + 1;
 
-  @override
-  State<Question> createState() => _QuestionState();
-}
-
-class _QuestionState extends State<Question> {
-  @override
-  Widget build(BuildContext context) {
-    return Gridlist();
-  }
-
-  ListView old_returnWidget() {
-    return ListView(
-      children: [
-        Container(
-          alignment: Alignment.center,
-          height: 120,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.fitWidth,
-              image: NetworkImage(
-                  "https://i.pinimg.com/originals/a6/88/66/a68866bc1252474fa15ed84b149b34b8.jpg"),
-            ),
-          ),
+  Widget getQuestion() {
+    return Padding(
+      padding: const EdgeInsets.all(0),
+      child: Container(
+        height: QUESTION_HEIGHT * _questionLines,
+        color: Colors.black,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
           child: Text(
-            "${_questionText} ",
+            _questionText,
             style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 40,
-              color: Colors.amber,
+              fontSize: TEXT_FONTSIZE,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
             ),
           ),
         ),
-        Divider(
-          height: 50,
-        ),
-        // Padding(
-        //   padding: const EdgeInsets.all(20.0),
-        //   child: Row(
-        //     children: [
-        //       GestureDetector(
-        //         onTap: () {
-        //           showDialog(
-        //               context: context,
-        //               builder: (context) {
-        //                 return AlertDialog(
-        //                   content: Center(
-        //                     child: Text("good job"),
-        //                   ),
-        //                 );
-        //               });
-        //         },
-        //         child: GestureDetector(
-        //           onTap: () {
-        //             showDialog(
-        //                 context: context,
-        //                 builder: (context) {
-        //                   return AlertDialog(
-        //                     content: Center(
-        //                       child: Text("try again"),
-        //                     ),
-        //                   );
-        //                 });
-        //           },
-        //           child: Text(
-        //             "${widget.answer_1}",
-        //             style: TextStyle(fontSize: 18),
-        //           ),
-        //         ),
-        //       ),
-        //       SizedBox(
-        //         width: 80,
-        //       ),
-        //       Text("${widget.answer_2}", style: TextStyle(fontSize: 18))
-        //     ],
-        //   ),
-        // ),
-        // SizedBox(
-        //   height: 40,
-        // ),
-        // Padding(
-        //   padding: const EdgeInsets.all(20.0),
-        //   child: Row(
-        //     children: [
-        //       Text("${widget.answer_3}", style: TextStyle(fontSize: 18)),
-        //       SizedBox(
-        //         width: 70,
-        //       ),
-        //       Text("${widget.answer_4}", style: TextStyle(fontSize: 18))
-        //     ],
-        //   ),
-        // )
-      ],
+        alignment: Alignment.topCenter,
+      ),
     );
+  }
+
+  Widget getAnswers_GridList({required Widget question}) {
+    return Stack(children: [
+      question,
+      Padding(
+        padding: EdgeInsets.only(top: (QUESTION_HEIGHT * _questionLines)),
+        child: GridView.builder(
+          itemCount: _answersList.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: _crossAxisCount,
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 0.0,
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            return Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [_getAnswer(index), _getOptionNum(index)],
+            );
+          },
+        ),
+      ),
+    ]);
+  }
+
+  Expanded _getAnswer(int index) {
+    return Expanded(
+      child: Container(
+        alignment: Alignment.center,
+        child: _answersList[index].getAnswer(),
+      ),
+    );
+  }
+
+  Container _getOptionNum(int index) {
+    return Container(
+      color: Colors.black,
+      width: double.infinity,
+      alignment: Alignment.centerLeft,
+      child: Text(
+        "Option: ${index + 1}",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: TEXT_FONTSIZE / 2,
+        ),
+      ),
+    );
+  }
+
+  static List<Widget> getIconsList() {
+    return question_IconList;
+  }
+
+  static void clearIconsList() {
+    question_IconList.clear();
   }
 }

@@ -10,10 +10,12 @@ class Home extends StatelessWidget {
       appBar: AppBar(),
       body: Container(
         decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                    "https://image.freepik.com/free-photo/flat-lay-workplace-arrangement-purple-background-with-copy-space_23-2148404535.jpg"))),
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: NetworkImage(
+                "https://image.freepik.com/free-photo/flat-lay-workplace-arrangement-purple-background-with-copy-space_23-2148404535.jpg"),
+          ),
+        ),
         child: Center(
           child: GestureDetector(
             onTap: () {
