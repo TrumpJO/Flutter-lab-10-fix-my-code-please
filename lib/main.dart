@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lab_10/models/quiz.dart';
 
 import 'Home.dart';
 
