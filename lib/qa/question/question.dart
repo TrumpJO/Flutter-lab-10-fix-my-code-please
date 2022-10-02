@@ -75,11 +75,15 @@ class Question {
                   color: Colors.black,
                 ),
               ),
-              child: Column(
-                children: [
+              child: InkWell(
+                child: Column(children: [
                   _getAnswer(index),
-                  _getOptionNum(index),
-                ],
+                  _getOptionContainer(index),
+                ]),
+                onTap: () {
+                  print("Tapped");
+                  _answersList[index].setOptionColor_BasedOnIsAnswerCorrect();
+                },
               ),
             );
           },
@@ -97,9 +101,9 @@ class Question {
     );
   }
 
-  Container _getOptionNum(int index) {
+  Container _getOptionContainer(int index) {
     return Container(
-      color: _getOptionColor_BasedOn_IsCorrectAnswer(index),
+      color: _answersList[index].getOptionColor(),
       width: double.infinity,
       alignment: Alignment.centerLeft,
       child: Text(
@@ -110,19 +114,6 @@ class Question {
         ),
       ),
     );
-  }
-
-  Color _getOptionColor_BasedOn_IsCorrectAnswer(int index) {
-    Answer answer = _answersList[index];
-    Color color = Colors
-        .white; // ToDo: To Change from 'white' to QUESTION_BACKGROUND when the value is added
-    if (answer.isCorrectAnswer()) {
-      color = Colors.green;
-    } else {
-      color = Colors.red;
-    }
-
-    return color;
   }
 
   static List<Widget> getIconsList() {
@@ -139,7 +130,7 @@ class Question {
           "https://th.bing.com/th/id/OIP.dwsjFEujyHT2v2h2MZqZjQHaHa?pid=ImgDet&rs=1"),
     );
     var _answerTestSample_QuestionText =
-        "Test Questions(1! to 3!):\nText_Sample(1)\nText_Sample(2) | Text_Sample(1)\nText_Sample(3) | Text_Sample(2) | Text_Sample(1)";
+        "Test Questions Sample:  <----->\n\t12! = ?\n12 + 11 + 10 + 9 + 8 + 7 + 6 + 5 + 4 + 3 + 2 + 1";
     var _answerTestSample_answersList = [
       Answer(answer: Text("111"), isCorrectAnswer: true),
       Answer(answer: Text("222")),
