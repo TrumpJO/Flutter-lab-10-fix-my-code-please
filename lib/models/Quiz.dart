@@ -58,7 +58,7 @@ class _QuizState extends State<Quiz> {
     List<Widget> widgetList = [];
     for (var element in _questionsList) {
       widgetList.add(
-        element.getAnswers_GridList(
+        element.getQA_GridList(
           question: element.getQuestion(),
         ),
       );
