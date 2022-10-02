@@ -38,10 +38,13 @@ class Home extends StatelessWidget {
                   });
             },
             child: Padding(
-              padding: const EdgeInsets.all(33.0),
-              child: Text(
-                "Do you think you are good in english press me if yes:)",
-                style: TextStyle(fontSize: 25, backgroundColor: Colors.white70),
+              padding: const EdgeInsets.only(left: 40, right: 8),
+              child: Container(
+                color: Colors.white.withAlpha(160),
+                child: Text(
+                  "Click me if you want\n to start the Quiz",
+                  style: TextStyle(fontSize: 25),
+                ),
               ),
             ),
           ),

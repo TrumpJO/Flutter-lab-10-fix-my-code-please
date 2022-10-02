@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lab_10/Home.dart';
+import 'package:lab_10/home.dart';
 import 'package:lab_10/main.dart';
 import 'package:lab_10/qa/answer.dart';
 
@@ -132,18 +132,18 @@ class Question {
     var _answerTestSample_QuestionText =
         "Test Questions Sample:  <----->\n\t12! = ?\n12 + 11 + 10 + 9 + 8 + 7 + 6 + 5 + 4 + 3 + 2 + 1";
     var _answerTestSample_answersList = [
-      Answer(answer: Text("111"), isCorrectAnswer: true),
-      Answer(answer: Text("222")),
+      Answer(answer: Text("This is Correct"), isCorrectAnswer: true),
+      Answer(answer: Text("This is NOT Correct")),
       Answer(answer: _answerTestSample_NetworkImage),
       Answer(answer: _answerTestSample_NetworkImage),
       Answer(answer: _answerTestSample_NetworkImage),
       Answer(answer: _answerTestSample_NetworkImage),
-      Answer(answer: Text("111"), isCorrectAnswer: true),
-      Answer(answer: Text("222")),
-      Answer(answer: Text("333")),
       Answer(answer: _answerTestSample_NetworkImage),
-      Answer(answer: Text("111"), isCorrectAnswer: true),
-      Answer(answer: Text("222")),
+      Answer(answer: _answerTestSample_NetworkImage),
+      Answer(answer: _answerTestSample_NetworkImage),
+      Answer(answer: _answerTestSample_NetworkImage),
+      Answer(answer: Text("1 + 2 = 3"), isCorrectAnswer: true),
+      Answer(answer: Text("1 + 2 = 4")),
     ];
 
     return Question(
