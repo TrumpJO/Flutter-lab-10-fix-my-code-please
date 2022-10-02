@@ -56,9 +56,10 @@ class Question {
     );
   }
 
-  Widget getAnswers_GridList({required Widget question}) {
+  Widget getQA_GridList({required Widget question}) {
     return Stack(children: [
       question,
+      AnswerWidget(),
       Padding(
         padding: EdgeInsets.only(top: (QUESTION_HEIGHT * _questionLines)),
         child: GridView.builder(
